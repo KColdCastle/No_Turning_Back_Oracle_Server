@@ -16,7 +16,8 @@ public class TransactionMax {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTIONMAX_SEQ_GENERATOR")
-    private long transactionMax_num;
+    @Column(name="transaction_num")
+    private long transactionMaxNum;
 
     @Column(name="post_num")
     private int postNum;

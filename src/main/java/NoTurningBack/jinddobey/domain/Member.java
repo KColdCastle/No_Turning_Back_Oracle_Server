@@ -41,8 +41,6 @@ public class Member {
     @Column(name = "password_change_date")
     private Date passwordChangeDate;
 
-    @OneToOne(mappedBy = "member")
-    private Trust trust;
 
     @OneToOne(mappedBy = "member")
     private JinddoPay jinddoPay;
