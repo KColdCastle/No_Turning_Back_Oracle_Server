@@ -16,19 +16,16 @@ public class TransactionMax {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTIONMAX_SEQ_GENERATOR")
-    @Column(name="transaction_num")
+    @Column(name="transaction_max_num")
     private long transactionMaxNum;
 
-    @Column(name="post_num")
-    private int postNum;
-
     @Column(name="max_price")
-    private int maxPrice;
+    private long maxPrice;
 
     @Column(name="max_email")
     private String maxEmail;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transaction_post_num")
+    @JoinColumn(name = "transactionNum")
     private Transaction transaction;
 }

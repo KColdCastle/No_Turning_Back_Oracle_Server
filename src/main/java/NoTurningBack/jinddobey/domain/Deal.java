@@ -15,24 +15,19 @@ import lombok.NoArgsConstructor;
 public class Deal {
 
     @Id
-    @Column(name="deal_num")
+    @Column(name="deal_num", unique = true)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEAL_SEQ_GENERATOR")
-    private int delNum;
-
-    @Column(name="post_num")
-    private int postNum;
-
-    @Column(name="buyer_email")
-    private String buyerEmail;
+    private int dealNum;
 
     @Column(name="seller_email")
     private String sellerEmail;
 
     @ManyToOne
-    @JoinColumn(name="jinddopay_email", referencedColumnName = "email")
+    @JoinColumn(name="buyer_email")
     private JinddoPay jinddoPay;
 
     @ManyToOne
-    @JoinColumn(name="dealcheck_post_num",referencedColumnName = "post_num")
+    @JoinColumn(name="postId")
     private DealCheck dealCheck;
+
 }

@@ -18,15 +18,11 @@ public class Member {
     @Id
     private String email;
 
-    @Column(name = "member_num")
-    private int userNum;
-
     @Column(nullable = false)
-
     private String address;
 
     @Column(name = "phone_num")
-    private int phoneNum;
+    private String phoneNum;
 
     @Column(nullable = false)
     private String password;
@@ -40,7 +36,6 @@ public class Member {
     @CreationTimestamp
     @Column(name = "password_change_date")
     private Date passwordChangeDate;
-
 
     @OneToOne(mappedBy = "member")
     private JinddoPay jinddoPay;

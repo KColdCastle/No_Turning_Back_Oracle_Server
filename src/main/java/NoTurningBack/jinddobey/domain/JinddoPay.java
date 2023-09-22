@@ -15,15 +15,16 @@ import java.util.List;
 public class JinddoPay {
 
     @Id
-    private String email;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "email")
+    private Member member;
+
+//    private String email;
 
     private long balance;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_email", referencedColumnName = "email")
-    private Member member;
 
-    @OneToMany(mappedBy = "jinddoPay")
+    @OneToMany(mappedBy = "jinddoPay", cascade = CascadeType.ALL)
     private List<Deal> deal = new ArrayList<>();
 
 }

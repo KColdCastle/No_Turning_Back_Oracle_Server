@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,8 @@ import java.util.List;
 public class DealCheck {
 
     @Id
-    @Column(name="post_num")
-    private int postNum;
+    @Column(name="post_id", unique = true)
+    private String postId;
 
     @Column(name="seller_email")
     private String sellerEmail;
@@ -28,13 +29,16 @@ public class DealCheck {
     @Column(name="buyer_email")
     private String buyerEmail;
 
-    @Column(name="seller_check")
+    @Column(name="seller_check", nullable = false)
+    @ColumnDefault("0")
     private boolean sellerCheck;
 
-    @Column(name="buyer_check")
+    @Column(name="buyer_check", nullable = false)
+    @ColumnDefault("0")
     private boolean buyerCheck;
 
     @Column(nullable = false)
+    @ColumnDefault("0")
     private boolean complete;
 
     @OneToMany(mappedBy = "dealCheck")
