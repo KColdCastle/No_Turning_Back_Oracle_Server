@@ -1,4 +1,8 @@
 package NoTurningBack.jinddobey.repository;
 
-public interface JinddoPayRepository {
+import NoTurningBack.jinddobey.domain.JinddoPay;
+import NoTurningBack.jinddobey.domain.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface JinddoPayRepository extends JpaRepository<JinddoPay, Member> {
 }

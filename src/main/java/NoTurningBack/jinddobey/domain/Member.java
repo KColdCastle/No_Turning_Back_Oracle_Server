@@ -36,8 +36,4 @@ public class Member {
     @CreationTimestamp
     @Column(name = "password_change_date")
     private Date passwordChangeDate;
-
-    @OneToOne(mappedBy = "member")
-    private JinddoPay jinddoPay;
-
 }

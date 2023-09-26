@@ -15,13 +15,11 @@ import java.util.List;
 public class JinddoPay {
 
     @Id
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "email")
-    private Member member;
+    private String email;
 
 //    private String email;
 
-    private long balance;
+    private Long balance;
 
 
     @OneToMany(mappedBy = "jinddoPay", cascade = CascadeType.ALL)
