@@ -42,4 +42,9 @@ public class TransactionController {
         long currentPrice=service.check(postId).getCurrentPrice();
         return currentPrice;
     }
+
+    @GetMapping("post/{postid}")
+    public Transaction transactionSingle(@PathVariable String postId){
+        return  service.check(postId);
+    }
 }

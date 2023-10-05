@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +16,11 @@ import java.util.List;
 public class Balance {
 
     @Id
-    private String email;
-
-    private Long balance;
-
     @ManyToOne(fetch = FetchType.EAGER)//ManyToOne이 항상 관계의 주인이다.
-    @JoinColumn(name="Member_email")
     private Member member;
+
+    @ColumnDefault("0")
+    private Long balance;
 
     @OneToMany(mappedBy = "email", cascade = CascadeType.ALL)
     private List<Deposit> deposits = new ArrayList<>();

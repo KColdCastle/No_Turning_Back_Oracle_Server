@@ -14,11 +14,13 @@ import org.hibernate.annotations.ColumnDefault;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity//DB 테이블과 연동되는 엔터티라고 설정
+@SequenceGenerator(name="Deal_SEQ_GENERATOR", sequenceName = "Deal_SEQ",initialValue = 1,allocationSize = 1)
 public class Deal {
 
     @Id
     @Column(name="deal_id", unique = true)
-    private String dealId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Deal_SEQ_GENERATOR")
+    private Long dealId;
 
     @OneToOne(mappedBy = "deal")
     //mappedBy 속성은 양방향 매핑일 때 사용하는데, 반대쪽 매핑의 필드 이름(deal)을 값으로 주면 됩니다.
@@ -33,12 +35,9 @@ public class Deal {
     @ManyToOne
     private Withdraw withdraw;
 
-
     @Column(name="seller_check", nullable = false)
-    @ColumnDefault("0")
-    private boolean sellerCheck;
+    private boolean sellerCheck = true;
 
     @Column(name="buyer_check", nullable = false)
-    @ColumnDefault("0")
-    private boolean buyerCheck;
+    private boolean buyerCheck = true;
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+
 @Controller
 @RequestMapping("member")
 @CrossOrigin(origins = "*", maxAge = 3600) //#매우 중요!
@@ -31,6 +33,4 @@ public class MemberController {
     public List<Member> memberList(){
         return service.memberList();
     }
-
-
 }

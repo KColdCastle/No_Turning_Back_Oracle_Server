@@ -13,10 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity//DB 테이블과 연동되는 엔터티라고 설정
+@SequenceGenerator(name="Withdraw_SEQ_GENERATOR", sequenceName = "Withdraw_SEQ",initialValue = 1,allocationSize = 1)
 public class Withdraw {
 
     @Id
     @Column(name="withdraw_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Withdraw_SEQ_GENERATOR")
     private Long withdrawId;
 
     @ManyToOne
