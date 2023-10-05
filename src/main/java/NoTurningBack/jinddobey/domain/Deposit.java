@@ -7,22 +7,20 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Data//게터 세터
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity//DB 테이블과 연동되는 엔터티라고 설정
-public class JinddoPay {
-
+public class Deposit {
     @Id
-    private String email;
+    @Column(name="deposit_id")
+    private Long depositId;
 
-//    private String email;
+    @ManyToOne
+    private Balance email;
 
-    private Long balance;
-
-
-    @OneToMany(mappedBy = "jinddoPay", cascade = CascadeType.ALL)
-    private List<Deal> deal = new ArrayList<>();
-
+    @OneToMany(mappedBy = "deposit")
+    private List<Deal> deals = new ArrayList<>();
 }

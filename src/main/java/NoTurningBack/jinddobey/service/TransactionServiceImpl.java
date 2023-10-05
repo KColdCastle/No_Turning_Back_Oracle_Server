@@ -29,7 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void maxPriceUpdateS(Transaction transaction) {
-        Optional<Transaction> newBidder= transactionRepository.findByTransactionNumAndPostId(transaction.getTransactionNum(), transaction.getPostId());
+        Optional<Transaction> newBidder= transactionRepository.findByTransactionIdAndPostId(transaction.getTransactionId(), transaction.getPostId());
         Transaction Transaction1=newBidder.get();
         Transaction1.setMaxEmail(transaction.getMaxEmail());
         Transaction1.setCurrentPrice(transaction.getCurrentPrice());

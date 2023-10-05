@@ -20,8 +20,8 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTION_SEQ_GENERATOR")
-    @Column(name="transaction_num")
-    private long transactionNum;
+    @Column(name="transaction_id")
+    private long transactionId;
 
     @Column(name="max_price")
     private long maxPrice;
@@ -42,5 +42,9 @@ public class Transaction {
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh-mm-ss", timezone = "Asia/Seoul")
     private Date biddingTimeStamp;
+
+    @OneToOne
+    @JoinColumn(name="deal_id")
+    private Deal deal;
 
 }

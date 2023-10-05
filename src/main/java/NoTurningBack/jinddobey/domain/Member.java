@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data//게터 세터
 @AllArgsConstructor
@@ -36,4 +38,8 @@ public class Member {
     @CreationTimestamp
     @Column(name = "password_change_date")
     private Date passwordChangeDate;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Balance> balance = new ArrayList<>();
+
 }
