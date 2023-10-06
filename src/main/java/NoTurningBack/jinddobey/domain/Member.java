@@ -33,9 +33,6 @@ public class Member {
     @Column(nullable = false)
     private boolean state =true;
 
-    @ColumnDefault("0")
-    private int warning;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @CreationTimestamp
     @Column(name = "create_date")

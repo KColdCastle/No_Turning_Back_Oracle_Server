@@ -18,13 +18,13 @@ import org.hibernate.annotations.ColumnDefault;
 public class Deal {
 
     @Id
-    @Column(name="deal_id", unique = true)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Deal_SEQ_GENERATOR")
     private Long dealId;
 
-    @OneToOne(mappedBy = "deal")
+    @OneToOne
+    @JoinColumn(name="transaction_FK", referencedColumnName = "transactionId")
     //mappedBy 속성은 양방향 매핑일 때 사용하는데, 반대쪽 매핑의 필드 이름(deal)을 값으로 주면 됩니다.
-    private Transaction transactionId;
+    private Transaction transaction;
 
     @ManyToOne
     private Deposit deposit;

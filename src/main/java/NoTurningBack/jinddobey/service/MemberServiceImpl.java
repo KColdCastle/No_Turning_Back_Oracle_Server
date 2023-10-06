@@ -27,4 +27,5 @@ public class MemberServiceImpl implements MemberService {
     public void join(Member member) {
         memberRepository.save(member);
     }
+
 }

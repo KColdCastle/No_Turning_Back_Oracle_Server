@@ -2,13 +2,13 @@ package NoTurningBack.jinddobey.controller;
 
 import NoTurningBack.jinddobey.domain.Transaction;
 import NoTurningBack.jinddobey.service.TransactionService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
 @RequestMapping("transaction")
 @CrossOrigin(origins = "*", maxAge = 3600) //#매우 중요!
 @RestController
@@ -18,7 +18,6 @@ public class TransactionController {
 
     @GetMapping("transaction_all")
     public List<Transaction> transactionAll(){
-
         System.out.println(service.checkAll());
         return service.checkAll();
     }
@@ -44,6 +43,7 @@ public class TransactionController {
     }
 
     @GetMapping("post/{postid}")
+    @JsonIgnore
     public Transaction transactionSingle(@PathVariable String postId){
         return  service.check(postId);
     }

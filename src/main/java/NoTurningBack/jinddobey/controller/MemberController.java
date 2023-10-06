@@ -11,7 +11,6 @@ import java.util.List;
 
 
 
-@Controller
 @RequestMapping("member")
 @CrossOrigin(origins = "*", maxAge = 3600) //#매우 중요!
 @RestController
