@@ -2,6 +2,7 @@ package NoTurningBack.jinddobey.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class Member {
     @Column(nullable = false)
     private String address;
 
-    @Column(name = "phone_num")
+    @Column
     private String phoneNum;
 
     @Column(nullable = false)
@@ -35,14 +36,13 @@ public class Member {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @CreationTimestamp
-    @Column(name = "create_date")
     private Date createDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @CreationTimestamp
-    @Column(name = "password_change_date")
     private Date passwordChangeDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Balance> balance = new ArrayList<>();
 

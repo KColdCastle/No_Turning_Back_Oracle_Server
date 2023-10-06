@@ -1,6 +1,7 @@
 package NoTurningBack.jinddobey.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,15 +18,17 @@ import java.util.List;
 public class ServicePrice {
 
     @Id
-    @Column(name="servicePrice_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ServicePrice_SEQ_GENERATOR")
     private Long servicePriceId;
 
+    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name="email", referencedColumnName = "email")
     private Balance email;
 
     private Long amount;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "servicePrice")
     private List<Deal> deals = new ArrayList<>();
 }

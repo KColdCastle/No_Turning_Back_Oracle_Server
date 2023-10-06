@@ -1,6 +1,7 @@
 package NoTurningBack.jinddobey.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,13 +18,15 @@ import java.util.List;
 public class Withdraw {
 
     @Id
-    @Column(name="withdraw_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Withdraw_SEQ_GENERATOR")
     private Long withdrawId;
 
+    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name="email", referencedColumnName = "email")
     private Balance email;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "withdraw")
     private List<Deal> deals = new ArrayList<>();
 }

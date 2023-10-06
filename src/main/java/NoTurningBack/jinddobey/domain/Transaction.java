@@ -2,6 +2,7 @@ package NoTurningBack.jinddobey.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,26 +24,27 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TRANSACTION_SEQ_GENERATOR")
     private long transactionId;
 
-    @Column(name="max_price")
+    @Column
     private long maxPrice;
 
-    @Column(name="max_email")
+    @Column
     private String maxEmail;
 
-    @Column(name="current_price")
+    @Column
     private long currentPrice;
 
-    @Column(name="post_id", unique = true)
+    @Column(unique = true)
     private String postId;
 
-    @Column(name="seller_email")
+    @Column
     private String sellerEmail;
 
-    @Column(name="bidding_timestamp")
+    @Column
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh-mm-ss", timezone = "Asia/Seoul")
     private Date biddingTimeStamp;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "transaction")
     private Deal deal;
 }

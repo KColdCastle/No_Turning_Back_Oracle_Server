@@ -18,7 +18,6 @@ public class TransactionController {
 
     @GetMapping("transaction_all")
     public List<Transaction> transactionAll(){
-        System.out.println(service.checkAll());
         return service.checkAll();
     }
 
@@ -42,9 +41,9 @@ public class TransactionController {
         return currentPrice;
     }
 
-    @GetMapping("post/{postid}")
-    @JsonIgnore
+    @GetMapping("post/{postId}")
     public Transaction transactionSingle(@PathVariable String postId){
-        return  service.check(postId);
+        System.out.println("이거 포스트 아이디"+postId);
+        return service.check(postId);
     }
 }

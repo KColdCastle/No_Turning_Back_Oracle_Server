@@ -1,5 +1,6 @@
 package NoTurningBack.jinddobey.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,13 +18,15 @@ import java.util.Random;
 
 public class Deposit {
     @Id
-    @Column(name="deposit_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Deposit_SEQ_GENERATOR")
     private Long depositId;
 
+    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name="email", referencedColumnName = "email")
     private Balance email;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "deposit")
     private List<Deal> deals = new ArrayList<>();
 }

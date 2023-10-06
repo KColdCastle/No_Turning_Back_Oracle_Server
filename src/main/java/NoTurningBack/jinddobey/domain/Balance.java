@@ -1,5 +1,6 @@
 package NoTurningBack.jinddobey.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,18 +17,23 @@ import java.util.List;
 public class Balance {
 
     @Id
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)//ManyToOne이 항상 관계의 주인이다.
+    @JoinColumn(name="email", referencedColumnName = "email")
     private Member member;
 
     @ColumnDefault("0")
     private Long balance;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "email", cascade = CascadeType.ALL)
     private List<Deposit> deposits = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "email", cascade = CascadeType.ALL)
     private List<ServicePrice> servicePrices = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "email", cascade = CascadeType.ALL)
     private List<Withdraw> withdraws = new ArrayList<>();
 

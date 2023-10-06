@@ -17,7 +17,6 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> checkAll() {
-        System.out.println("transaction:"+transactionRepository.findAll());
         return transactionRepository.findAll();
     }
 
