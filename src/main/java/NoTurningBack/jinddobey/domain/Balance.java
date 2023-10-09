@@ -18,7 +18,7 @@ public class Balance {
 
     @Id
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)//ManyToOne이 항상 관계의 주인이다.
+    @OneToOne(fetch = FetchType.EAGER)//ManyToOne이 항상 관계의 주인이다.
     @JoinColumn(name="email", referencedColumnName = "email")
     private Member member;
 

@@ -43,7 +43,7 @@ public class Member {
     private Date passwordChangeDate;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Balance> balance = new ArrayList<>();
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    private Balance balance;
 
 }
