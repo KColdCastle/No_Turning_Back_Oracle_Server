@@ -5,11 +5,16 @@ import NoTurningBack.jinddobey.domain.Member;
 import java.util.List;
 
 public interface MemberService {
-    List<Member> informationAll(String email);
+    Member informationAll(String email);
 
     List<Member> memberList();
 
     void join(Member member);
 
-    public List<Member> blackMemberListS();
+    List<Member> blackMemberListS();
+
+    int check(String email,String password);
+
+    Member getLogin(String email);
+
 }

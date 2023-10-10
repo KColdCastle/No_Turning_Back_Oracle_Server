@@ -8,4 +8,5 @@ public interface TransactionService {
     List<Transaction> checkAll();
     Transaction check(String postId);
     void maxPriceUpdateS(Transaction transaction);
+    void transactionAddS(Transaction transaction);
 }

@@ -19,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity//DB 테이블과 연동되는 엔터티라고 설정
 public class Member {
+
     @Id
     private String email;
 

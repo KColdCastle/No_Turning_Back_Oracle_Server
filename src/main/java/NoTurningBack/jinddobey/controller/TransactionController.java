@@ -45,4 +45,9 @@ public class TransactionController {
         return service.check(postId);
     }
 
+    @PostMapping("post")
+    public void transactionAdd(@RequestBody Transaction transaction){
+        service.transactionAddS(transaction);
+    }
+
 }

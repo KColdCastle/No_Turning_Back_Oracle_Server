@@ -24,6 +24,7 @@ public class AdminController {
         return memberService.blackMemberListS();
     }
 
+
     @PutMapping("blackMemberList")//대충 블랙리스트 추가한다는 내용
     public void blackMemberAdd(){
 

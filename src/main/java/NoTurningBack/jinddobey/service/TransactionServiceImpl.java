@@ -36,4 +36,9 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction1.setMaxPrice(transaction.getMaxPrice());
         transactionRepository.save(Transaction1);
     }
+
+    @Override
+    public void transactionAddS(Transaction transaction) {
+        transactionRepository.save(transaction);
+    }
 }
