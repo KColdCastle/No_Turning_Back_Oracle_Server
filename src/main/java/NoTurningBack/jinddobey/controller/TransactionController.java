@@ -26,6 +26,7 @@ public class TransactionController {
     }
     @PutMapping("max_price")
     public void maxPriceUpdate(@RequestBody Transaction transaction){
+        System.out.println(transaction);
         service.maxPriceUpdateS(transaction);
     }
     @GetMapping("max_email/{postId}")
