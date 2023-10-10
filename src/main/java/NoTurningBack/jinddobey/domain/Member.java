@@ -45,5 +45,4 @@ public class Member {
     @JsonIgnore
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
     private Balance balance;
-
 }

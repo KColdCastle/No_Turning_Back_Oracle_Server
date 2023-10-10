@@ -10,4 +10,6 @@ public interface MemberService {
     List<Member> memberList();
 
     void join(Member member);
+
+    public List<Member> blackMemberListS();
 }

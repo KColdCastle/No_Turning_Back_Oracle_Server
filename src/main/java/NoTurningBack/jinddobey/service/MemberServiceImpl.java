@@ -28,4 +28,10 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
     }
 
+    @Override
+    public List<Member> blackMemberListS() {
+        //블랙멤버 읽어오는 메소드
+        return memberRepository.findByState(false);
+    }
+
 }

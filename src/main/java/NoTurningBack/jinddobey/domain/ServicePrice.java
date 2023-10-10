@@ -24,7 +24,7 @@ public class ServicePrice {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="email", referencedColumnName = "email")
-    private Balance email;
+    private Balance balance;
 
     private Long amount;
 

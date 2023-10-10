@@ -24,7 +24,7 @@ public class Withdraw {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="email", referencedColumnName = "email")
-    private Balance email;
+    private Balance balance;
 
     @JsonIgnore
     @OneToMany(mappedBy = "withdraw")

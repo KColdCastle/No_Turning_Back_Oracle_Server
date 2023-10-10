@@ -32,7 +32,7 @@ public class TransactionServiceImpl implements TransactionService {
         //Optional<>은 데이터 값에서 null일 경우 오류나는 것을 방지해줌.
         Transaction Transaction1=newBidder.get();
         Transaction1.setMaxEmail(transaction.getMaxEmail());
-        Transaction1.setCurrentPrice(transaction.getCurrentPrice());
+        Transaction1.setMaxPrice(transaction.getMaxPrice());
         transactionRepository.save(Transaction1);
     }
 }

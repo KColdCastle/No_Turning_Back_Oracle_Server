@@ -21,6 +21,7 @@ public class Balance {
     private String email;
 
     @JsonIgnore
+    @MapsId
     @OneToOne(fetch = FetchType.EAGER)//ManyToOne이 항상 관계의 주인이다.
     @JoinColumn(name="email", referencedColumnName = "email")
     private Member member;
@@ -29,15 +30,15 @@ public class Balance {
     private Long balance;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "email", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "balance", cascade = CascadeType.ALL)
     private List<Deposit> deposits = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "email", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "balance", cascade = CascadeType.ALL)
     private List<ServicePrice> servicePrices = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "email", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "balance", cascade = CascadeType.ALL)
     private List<Withdraw> withdraws = new ArrayList<>();
 
 }
