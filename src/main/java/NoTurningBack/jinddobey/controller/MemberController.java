@@ -3,15 +3,16 @@ package NoTurningBack.jinddobey.controller;
 
 import NoTurningBack.jinddobey.domain.Member;
 import NoTurningBack.jinddobey.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
-
-import static NoTurningBack.jinddobey.service.MemberLoginConst.YES_ID_PWD;
+import java.util.Map;
 
 
 @RequestMapping("member")
@@ -21,7 +22,7 @@ public class MemberController {
     @Autowired
     MemberService service;
 
-    @PostMapping("member_join")
+    @PostMapping("member_join")//회원가입
     public void memberJoin(@RequestBody Member member){//JSON 파일로만 입력 하도록 하였음.
         service.join(member);
     }
@@ -31,26 +32,42 @@ public class MemberController {
         return service.informationAll(email);
     }
 
+    @PutMapping("/member_info/{email}")//사용자 정보 변경 요청 컨트롤러
+    public String memberUpdate(@RequestBody Member member, @PathVariable String email){
+        service.update(member, email);
+        return "redirect:member/member_join";
+    }
+
     @GetMapping("memberList")
     public List<Member> memberList(){
         return service.memberList();
     }
 
-    @PostMapping("login")
-    public String tryLogin(@RequestBody Member member, HttpSession session){
-        System.out.println("이메일:"+member.getEmail());
-        int result = service.check(member.getEmail(), member.getPassword());
-        if(result == YES_ID_PWD){
-            Member loginOkUser = service.getLogin(member.getEmail());
-            session.setAttribute("loginOkUser", loginOkUser);
-            return "성공";
-        }
-        else {
-            return "개같이 실패";
+    @PostMapping("/login") // 로그인 세션
+    public ResponseEntity<Map<String, Object>> memberLogin(@RequestBody Member member, HttpServletRequest request) {
+
+        // 서비스를 통해 로그인 시도
+        Member loggedInMember = service.login(member.getEmail(), member.getPassword());
+
+
+        if (loggedInMember != null) {
+            // 로그인 성공 시 세션 생성
+            HttpSession session = request.getSession();
+            session.setAttribute("loggedInMember", loggedInMember);
+
+            // 성공 메시지와 세션 정보를 JSON으로 응답합니다.
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "로그인 성공");
+            response.put("sessionInfo", loggedInMember);
+
+            return ResponseEntity.ok(response);
+        } else {
+            // 로그인 실패 시 401 Unauthorized 상태 코드와 실패 메시지를 반환합니다.
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("error", "로그인 실패");
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }
     }
-    @GetMapping("logout.do")
-    public void logout(HttpSession session){
-        session.invalidate();//session 모든객체 제거
-    }
+
 }

@@ -35,17 +35,7 @@ public class Deal {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="servicePrice_id", referencedColumnName = "servicePriceId")
-    private ServicePrice servicePrice;
-
-    @JsonIgnore
-    @ManyToOne
     @JoinColumn(name="withdraw_id", referencedColumnName = "withdrawId")
     private Withdraw withdraw;
 
-    @Column(nullable = false)
-    private boolean sellerCheck = true;
-
-    @Column(nullable = false)
-    private boolean buyerCheck = true;
 }

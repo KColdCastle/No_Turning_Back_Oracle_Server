@@ -44,6 +44,11 @@ public class Transaction {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh-mm-ss", timezone = "Asia/Seoul")
     private Date biddingTimeStamp;
 
+    @Column(nullable = false)
+    private boolean sellerCheck = true;
+
+    @Column(nullable = false)
+    private boolean buyerCheck = true;
     @JsonIgnore
     @OneToOne(mappedBy = "transaction")
     private Deal deal;

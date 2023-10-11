@@ -33,9 +33,6 @@ public class Balance {
     @OneToMany(mappedBy = "balance", cascade = CascadeType.ALL)
     private List<Deposit> deposits = new ArrayList<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "balance", cascade = CascadeType.ALL)
-    private List<ServicePrice> servicePrices = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "balance", cascade = CascadeType.ALL)
