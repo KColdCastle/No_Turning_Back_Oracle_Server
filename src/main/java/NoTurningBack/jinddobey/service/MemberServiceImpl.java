@@ -20,20 +20,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> memberList() {
-        return memberRepository.findAll();
-    }
-
-    @Override
     public void join(Member member) {
         //회원가입
         memberRepository.save(member);
-    }
-
-    @Override
-    public List<Member> blackMemberListS() {
-        //블랙멤버 읽어오는 메소드
-        return memberRepository.findByState(false);
     }
 
     @Override //로그인 세션

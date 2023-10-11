@@ -1,6 +1,8 @@
 package NoTurningBack.jinddobey.controller;
 
+import NoTurningBack.jinddobey.domain.Admin;
 import NoTurningBack.jinddobey.domain.Member;
+import NoTurningBack.jinddobey.service.AdminService;
 import NoTurningBack.jinddobey.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +14,21 @@ import java.util.List;
 @RestController
 public class AdminController {
     @Autowired
-    MemberService memberService;
+    AdminService adminService;
+
+    @PostMapping("admin_join")//회원가입
+    public void adminJoin(@RequestBody Admin admin){//JSON 파일로만 입력 하도록 하였음.
+        adminService.join(admin);
+    }
 
     @GetMapping("memberList")
     public List<Member> memberList(){
-        return memberService.memberList();
+        return adminService.memberList();
     }
 
     @GetMapping("blackMemberList")
     public List<Member> blackMemberList(){
-        return memberService.blackMemberListS();
+        return adminService.blackMemberListS();
     }
 
 

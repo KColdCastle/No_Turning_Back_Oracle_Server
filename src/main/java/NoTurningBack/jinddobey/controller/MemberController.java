@@ -38,10 +38,7 @@ public class MemberController {
         return "redirect:member/member_join";
     }
 
-    @GetMapping("memberList")
-    public List<Member> memberList(){
-        return service.memberList();
-    }
+
 
     @PostMapping("/login") // 로그인 세션
     public ResponseEntity<Map<String, Object>> memberLogin(@RequestBody Member member, HttpServletRequest request) {

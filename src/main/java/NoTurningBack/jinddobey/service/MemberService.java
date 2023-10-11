@@ -17,13 +17,5 @@ public interface MemberService {
     //로그인 세션
     Member login(String email, String password);
 
-    //어드민에서 회원목록 조회시 사용
-    List<Member> memberList();
-
-    //어드민에서 블랙리스트 조회시 사용
-    List<Member> blackMemberListS();
-
-
-
 
 }
