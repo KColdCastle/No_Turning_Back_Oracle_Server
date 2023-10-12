@@ -3,7 +3,6 @@ package NoTurningBack.jinddobey.controller;
 import NoTurningBack.jinddobey.domain.Admin;
 import NoTurningBack.jinddobey.domain.Member;
 import NoTurningBack.jinddobey.service.AdminService;
-import NoTurningBack.jinddobey.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +29,6 @@ public class AdminController {
     public List<Member> blackMemberList(){
         return adminService.blackMemberListS();
     }
-
 
     @PutMapping("blackMemberList")//대충 블랙리스트 추가한다는 내용
     public void blackMemberAdd(){

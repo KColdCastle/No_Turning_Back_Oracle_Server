@@ -15,7 +15,7 @@ public interface MemberService {
     void update(Member member, String email);
 
     //로그인 세션
-    Member login(String email, String password);
+    boolean login(String email, String password);
 
 
 }

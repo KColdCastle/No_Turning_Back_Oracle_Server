@@ -26,18 +26,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override //로그인 세션
-    public Member login(String email, String password) {
+    public boolean login(String email, String password) {
         // 이메일을 사용하여 사용자 정보를 조회합니다.
         Member member = memberRepository.findByEmail(email);
+//        System.out.println("이메일:"+member.getEmail());
+//        System.out.println("비밀번호: "+member.getPassword());
 
         // 사용자 정보가 없거나 비밀번호가 일치하지 않으면 null을 반환합니다.
         if (member == null || !member.getPassword().equals(password)) {
-            return null;
+            return false;
         }else{
-            Member memberWithIdOnly = new Member(); //객체 생성
-            memberWithIdOnly.setEmail(member.getEmail());
-
-            return memberWithIdOnly;
+            return true;
         }
     }
 
