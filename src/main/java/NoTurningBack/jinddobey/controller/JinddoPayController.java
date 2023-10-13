@@ -13,7 +13,7 @@ public class JinddoPayController {
     @Autowired
     JinddoPayService jinddoPayService;
 
-    @PostMapping("/create}") // 사용자 정보 변경 요청 컨트롤러
+    @PostMapping("/{create}") // 사용자 정보 변경 요청 컨트롤러
     public String jinddoPayCreate(@RequestBody Balance balance) {
         jinddoPayService.jinddoPayCreateS(balance);
         return "redirect:../";

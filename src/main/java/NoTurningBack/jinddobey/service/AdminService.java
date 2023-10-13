@@ -6,12 +6,15 @@ import NoTurningBack.jinddobey.domain.Member;
 import java.util.List;
 
 public interface AdminService {
-    //어드민 관리자 추가시 사용
+    // 어드민 관리자 추가시 사용
     void join(Admin admin);
 
-    //어드민에서 회원목록 조회시 사용
+    // 어드민에서 회원목록 조회시 사용
     List<Member> memberList();
 
-    //어드민에서 블랙리스트 조회시 사용
+    // 어드민에서 블랙리스트 조회시 사용
     List<Member> blackMemberListS();
+
+    boolean login(String email, String password);
+
 }

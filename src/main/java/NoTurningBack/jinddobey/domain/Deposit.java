@@ -8,13 +8,12 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-@Data//게터 세터
+@Data // 게터 세터
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity//DB 테이블과 연동되는 엔터티라고 설정
-@SequenceGenerator(name="Deposit_SEQ_GENERATOR", sequenceName = "Deposit_SEQ",initialValue = 1,allocationSize = 1)
+@Entity // DB 테이블과 연동되는 엔터티라고 설정
+@SequenceGenerator(name = "Deposit_SEQ_GENERATOR", sequenceName = "Deposit_SEQ", initialValue = 1, allocationSize = 1)
 
 public class Deposit {
     @Id
@@ -23,7 +22,7 @@ public class Deposit {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="email", referencedColumnName = "email")
+    @JoinColumn(name = "email", referencedColumnName = "email")
     private Balance balance;
 
     @JsonIgnore
