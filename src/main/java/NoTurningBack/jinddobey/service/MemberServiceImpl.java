@@ -14,6 +14,7 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
     @Autowired
     MemberRepository memberRepository;
+
     @Override
     public Member informationAll(String email) {
         return memberRepository.findByEmail(email);

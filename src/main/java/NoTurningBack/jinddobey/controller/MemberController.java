@@ -19,21 +19,21 @@ import java.util.Map;
 @RestController
 public class MemberController {
     @Autowired
-    MemberService service;
+    MemberService memberService;
 
     @PostMapping("member_join")//회원가입
     public void memberJoin(@RequestBody Member member){//JSON 파일로만 입력 하도록 하였음.
-        service.join(member);
+        memberService.join(member);
     }
 
     @GetMapping("member_info/{email}")
     public Member memberInfo(@PathVariable String email){
-        return service.informationAll(email);
+        return memberService.informationAll(email);
     }
 
     @PutMapping("/member_info/{email}")//사용자 정보 변경 요청 컨트롤러
     public String memberUpdate(@RequestBody Member member, @PathVariable String email){
-        service.update(member, email);
+        memberService.update(member, email);
         return "redirect:member/member_join";
     }
 
@@ -41,7 +41,7 @@ public class MemberController {
     public ResponseEntity<String> memberLogin(@RequestBody Member member, HttpServletRequest request) {
 
         // 서비스를 통해 로그인 시도
-        boolean loginState = service.login(member.getEmail(), member.getPassword());
+        boolean loginState = memberService.login(member.getEmail(), member.getPassword());
 
 
         if (loginState != false) {

@@ -1,7 +1,5 @@
 package NoTurningBack.jinddobey.service;
 
-import NoTurningBack.jinddobey.domain.Balance;
-import NoTurningBack.jinddobey.domain.Deposit;
 import NoTurningBack.jinddobey.domain.Transaction;
 import NoTurningBack.jinddobey.repository.BalanceRepository;
 import NoTurningBack.jinddobey.repository.DealRepository;

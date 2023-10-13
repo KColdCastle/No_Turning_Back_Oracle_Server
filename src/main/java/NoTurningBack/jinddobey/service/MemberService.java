@@ -16,6 +16,4 @@ public interface MemberService {
 
     //로그인 세션
     boolean login(String email, String password);
-
-
 }
