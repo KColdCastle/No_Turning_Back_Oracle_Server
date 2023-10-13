@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, String> {
-    Member findByEmail(String email);
-
     List<Member> findByState(boolean state);
+
+    Optional<Member> findOptionalByEmail(String email);
+
+    Member findByEmail(String email);
 
 }

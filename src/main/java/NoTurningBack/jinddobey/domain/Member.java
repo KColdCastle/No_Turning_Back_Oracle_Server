@@ -1,6 +1,5 @@
 package NoTurningBack.jinddobey.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -14,10 +13,10 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data//게터 세터
+@Data // 게터 세터
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity//DB 테이블과 연동되는 엔터티라고 설정
+@Entity // DB 테이블과 연동되는 엔터티라고 설정
 public class Member {
 
     @Id
@@ -33,7 +32,10 @@ public class Member {
     private String password;
 
     @Column(nullable = false)
-    private boolean state =true;
+    private boolean state = true;
+
+    @ColumnDefault("0")
+    private int warning;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @CreationTimestamp
