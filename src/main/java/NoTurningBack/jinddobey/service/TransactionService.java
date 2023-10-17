@@ -9,4 +9,10 @@ public interface TransactionService {
     Transaction check(String postId);
     void maxPriceUpdateS(Transaction transaction);
     void transactionAddS(Transaction transaction);
+
+    void buyerCheckS(Transaction transaction);
+
+    void sellerCheckS(Transaction transaction);
+
+    void dealExcute(Transaction transaction);
 }

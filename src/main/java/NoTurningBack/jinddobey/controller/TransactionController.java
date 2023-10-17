@@ -50,4 +50,15 @@ public class TransactionController {
         service.transactionAddS(transaction);
     }
 
+    @PutMapping("sellerCheck")
+    public void sellerCheck(@RequestBody Transaction transaction){
+        service.sellerCheckS(transaction);
+    }
+    @PutMapping("dealerCheck")
+    public void buyerCheck(@RequestBody Transaction transaction){
+        service.buyerCheckS(transaction);
+    }
+
+
+
 }

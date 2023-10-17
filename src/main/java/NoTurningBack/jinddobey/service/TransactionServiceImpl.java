@@ -1,7 +1,8 @@
 package NoTurningBack.jinddobey.service;
 
 import NoTurningBack.jinddobey.domain.Transaction;
-import NoTurningBack.jinddobey.repository.TransactionRepository;
+import NoTurningBack.jinddobey.repository.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class TransactionServiceImpl implements TransactionService {
+
+    @Autowired
+    WithdrawRepository withdrawRepository;
+    @Autowired
+    DepositRepository depositRepository;
+    @Autowired
+    BalanceRepository balanceRepository;
+    @Autowired
+    DealRepository dealRepository;
     @Autowired
     TransactionRepository transactionRepository;
 
@@ -41,4 +51,37 @@ public class TransactionServiceImpl implements TransactionService {
     public void transactionAddS(Transaction transaction) {
         transactionRepository.save(transaction);
     }
+    @Override
+    public void sellerCheckS(Transaction transaction) {
+        Transaction transaction1=transactionRepository.findByPostId(transaction.getPostId());
+        transaction1.setSellerCheck(transaction1.isSellerCheck());
+        transactionRepository.save(transaction1);
+
+    }
+    @Override
+    public void buyerCheckS(Transaction transaction) {
+        Transaction transaction1=transactionRepository.findByPostId(transaction.getPostId());
+        transaction1.setBuyerCheck(transaction1.isBuyerCheck());
+        transactionRepository.save(transaction1);
+        dealExcute(transaction1);
+    }
+
+    @Transactional
+    @Override
+    public void dealExcute(Transaction transaction) {
+        if(transaction.isBuyerCheck()==transaction.isSellerCheck()){
+            System.out.println("이제실행");
+            System.out.println("이체할 가격: "+transaction.getCurrentPrice());
+            System.out.println("받을사람 email: "+transaction.getSellerEmail());
+            System.out.println("구매하는 사람 email: "+transaction.getMaxEmail());
+
+        }
+        
+
+
+    }
+
+
+
+
 }

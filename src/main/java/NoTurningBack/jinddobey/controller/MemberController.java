@@ -3,14 +3,11 @@ package NoTurningBack.jinddobey.controller;
 import NoTurningBack.jinddobey.domain.Member;
 import NoTurningBack.jinddobey.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.List;
 
