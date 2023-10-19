@@ -10,7 +10,7 @@ public interface MemberService {
     Member informationAll(String email);
 
     // 회원가입시 사용
-    void join(Member member);
+    boolean join(Member member);
 
     // 회원정보 변경시 사용
     void update(Member member, String email);

@@ -19,8 +19,14 @@ public class MemberController {
     MemberService memberService;
 
     @PostMapping("member_join") // 회원가입
-    public void memberJoin(@RequestBody Member member) {// JSON 파일로만 입력 하도록 하였음.
-        memberService.join(member);
+    public ResponseEntity<String> memberJoin(@RequestBody Member member) {// JSON 파일로만 입력 하도록 하였음.
+        System.out.println("회원가입 넘어온 데이터: "+member);
+        boolean joinState = memberService.join(member);
+        if(joinState != false){
+            return ResponseEntity.ok("회원가입 성공");
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("회원가입 실패");
+        }
     }
 
     @GetMapping("member_info/{email}")

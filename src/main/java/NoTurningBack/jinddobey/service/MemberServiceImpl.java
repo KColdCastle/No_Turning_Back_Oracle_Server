@@ -22,9 +22,15 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void join(Member member) {
+    public boolean join(Member member) {
         // 회원가입
-        memberRepository.save(member);
+        Member member1 = memberRepository.findByEmail(member.getEmail());
+        if(member1==null){
+            memberRepository.save(member);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Override // 로그인 세션
