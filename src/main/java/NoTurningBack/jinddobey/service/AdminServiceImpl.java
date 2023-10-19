@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -39,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
     @Override // 로그인 세션
     public boolean login(String adminId, String adminPassword) {
         // 이메일을 사용하여 사용자 정보를 조회합니다.
-        Admin admin = adminRepository.getByAdminId(adminId);
+        Admin admin = adminRepository.findByAdminId(adminId);
         // System.out.println("이메일:"+member.getEmail());
         // System.out.println("비밀번호: "+member.getPassword());
 

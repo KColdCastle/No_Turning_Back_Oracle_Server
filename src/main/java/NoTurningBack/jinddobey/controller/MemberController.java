@@ -60,12 +60,6 @@ public class MemberController {
         }
     }
 
-    @PostMapping("search2")
-    public List<Member> search2(Member name) {
-        List<Member> list = memberService.getListByNames(name);
-        return list;
-    }
-
     @GetMapping("member/{email}")
     public ResponseEntity<Member> getMemberByEmail(@PathVariable String email) {
         Optional<Member> optionalMember = memberService.findMemberByEmail(email);
@@ -74,9 +68,9 @@ public class MemberController {
     }
 
     @PutMapping("increaseWarning/{email}")
-    public void increaseWarning(@PathVariable String email) {
-        // 이메일을 사용하여 회원을 찾습니다.
+    public ResponseEntity<Void> increaseWarning(@PathVariable String email) {
         memberService.increaseWarningS(email);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("minusWarning/{email}")
@@ -87,5 +81,19 @@ public class MemberController {
     @GetMapping("memberState")
     public List<Member> memberState() {
         return memberService.memberState(true);
+    }
+
+    // ! 유저 검색
+    @PostMapping("memberSearchEmail")
+    public List<Member> memberSearchEmail(@RequestBody Member member) {
+        List<Member> list = memberService.getListByEmail(member);
+        return list;
+    }
+
+    // ! 유저 검색
+    @PostMapping("memberSearchPN")
+    public List<Member> memberSearchPN(@RequestBody Member member) {
+        List<Member> list = memberService.getListByPhoneNum(member);
+        return list;
     }
 }

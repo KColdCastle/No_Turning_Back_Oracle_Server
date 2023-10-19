@@ -5,6 +5,7 @@ import NoTurningBack.jinddobey.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,39 +58,33 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void increaseWarningS(String email) {
-        Member warningMember = memberRepository.findOptionalByEmail(email).orElse(null);
-        Member stateMember = memberRepository.findOptionalByEmail(email).orElse(null);
-
-        if (warningMember == null) {
+        Member member = memberRepository.findOptionalByEmail(email).orElse(null);
+        if (member == null)
             return;
-        }
-        if (warningMember.getWarning() < 3) {
-            warningMember.setWarning(warningMember.getWarning() + 1);
-            warningMember.setState(false);
-            memberRepository.save(stateMember);
-            memberRepository.save(warningMember);
-        }
-        if (warningMember.getWarning() == 3) {
-            warningMember.setState(true);
-            memberRepository.save(stateMember);
-        }
 
+        if (member.getWarning() < 3) {
+            member.setWarning(member.getWarning() + 1);
+            member.setState(false);
+        }
+        if (member.getWarning() == 3) {
+            member.setState(true);
+        }
+        memberRepository.save(member);
     }
 
     @Override
     public void minusWarningS(String email) {
-        Member warningMember = memberRepository.findOptionalByEmail(email).orElse(null);
-        Member stateMember = memberRepository.findOptionalByEmail(email).orElse(null);
+        Member member = memberRepository.findOptionalByEmail(email).orElse(null);
 
-        if (warningMember == null) {
+        if (member == null) {
             return;
         }
-        if (warningMember.getWarning() > 0) {
-            warningMember.setWarning(warningMember.getWarning() - 1);
-            warningMember.setState(false);
-            memberRepository.save(stateMember);
-            memberRepository.save(warningMember);
+        if (member.getWarning() > 0) {
+            member.setWarning(member.getWarning() - 1);
+            member.setState(false);
         }
+        memberRepository.save(member);
+
     }
 
     @Override
@@ -101,6 +96,20 @@ public class MemberServiceImpl implements MemberService {
     public List<Member> getListByNames(Member name) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getListByNames'");
+    }
+
+    // ! 유저 검색 이메일
+    @Override
+    public List<Member> getListByEmail(Member member) {
+        return memberRepository.findByEmailContaining(member.getEmail());
+
+    }
+
+    // ! 유저 검색 폰
+    @Override
+    public List<Member> getListByPhoneNum(Member member) {
+        return memberRepository.findByPhoneNumContaining(member.getPhoneNum());
+
     }
 
 }

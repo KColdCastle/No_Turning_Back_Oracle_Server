@@ -18,6 +18,7 @@ public interface MemberService {
     // 로그인 세션
     boolean login(String email, String password);
 
+    // 경고버튼
     public void increaseWarningS(String email);
 
     public void minusWarningS(String email);
@@ -27,4 +28,10 @@ public interface MemberService {
     List<Member> memberState(boolean state);
 
     List<Member> getListByNames(Member name);
+
+    // ! 유저 검색
+    List<Member> getListByEmail(Member member);
+
+    // ! 유저 검색
+    List<Member> getListByPhoneNum(Member member);
 }
