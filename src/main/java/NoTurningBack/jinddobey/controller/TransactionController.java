@@ -12,53 +12,51 @@ import java.util.List;
 @RestController
 public class TransactionController {
     @Autowired
-    TransactionService service;
+    TransactionService transactionService;
 
     @GetMapping("transaction_all")
     public List<Transaction> transactionAll(){
-        return service.checkAll();
+        return transactionService.checkAll();
     }
 
     @GetMapping("max_price/{postId}")
     public long maxPriceCheck(@PathVariable String postId){
-        long maxPrice=service.check(postId).getMaxPrice();
+        long maxPrice=transactionService.check(postId).getMaxPrice();
         return maxPrice;
     }
     @PutMapping("max_price")
     public void maxPriceUpdate(@RequestBody Transaction transaction){
         System.out.println(transaction);
-        service.maxPriceUpdateS(transaction);
+        transactionService.maxPriceUpdateS(transaction);
     }
     @GetMapping("max_email/{postId}")
     public String maxEmailCheck(@PathVariable String postId){
-        String maxEmail=service.check(postId).getMaxEmail();
+        String maxEmail=transactionService.check(postId).getMaxEmail();
         return maxEmail;
     }
     @GetMapping("current_price/{postId}")
     public long currentPriceCheck(@PathVariable String postId){
-        long currentPrice=service.check(postId).getCurrentPrice();
+        long currentPrice=transactionService.check(postId).getCurrentPrice();
         return currentPrice;
     }
 
     @GetMapping("post/{postId}")
     public Transaction transactionSingle(@PathVariable String postId){
-        return service.check(postId);
+        return transactionService.check(postId);
     }
 
     @PostMapping("post")
     public void transactionAdd(@RequestBody Transaction transaction){
-        service.transactionAddS(transaction);
+        transactionService.transactionAddS(transaction);
     }
 
     @PutMapping("sellerCheck")
     public void sellerCheck(@RequestBody Transaction transaction){
-        service.sellerCheckS(transaction);
+        transactionService.sellerCheckS(transaction);
     }
     @PutMapping("dealerCheck")
     public void buyerCheck(@RequestBody Transaction transaction){
-        service.buyerCheckS(transaction);
+        transactionService.buyerCheckS(transaction);
     }
-
-
 
 }

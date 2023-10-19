@@ -36,7 +36,7 @@ public class MemberController {
 
     @PostMapping("/login") // 로그인 세션
     public ResponseEntity<String> memberLogin(@RequestBody Member member, HttpServletRequest request) {
-
+        System.out.println("로그인 정보 :"+member);
         // 서비스를 통해 로그인 시도
         boolean loginState = memberService.login(member.getEmail(), member.getPassword());
 

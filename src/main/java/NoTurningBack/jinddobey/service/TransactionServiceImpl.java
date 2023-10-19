@@ -76,12 +76,5 @@ public class TransactionServiceImpl implements TransactionService {
             System.out.println("구매하는 사람 email: "+transaction.getMaxEmail());
 
         }
-        
-
-
     }
-
-
-
-
 }

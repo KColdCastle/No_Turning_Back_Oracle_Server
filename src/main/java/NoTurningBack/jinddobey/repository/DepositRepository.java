@@ -5,4 +5,5 @@ import NoTurningBack.jinddobey.domain.Deposit;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DepositRepository extends JpaRepository<Deposit, Long> {
+//    void jinddoSave(String email);
 }
