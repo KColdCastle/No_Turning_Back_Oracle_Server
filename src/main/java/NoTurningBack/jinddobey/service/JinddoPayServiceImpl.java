@@ -35,10 +35,11 @@ public class JinddoPayServiceImpl implements JinddoPayService {
     }
 
     @Override
-    public boolean jinddoPayChargeS(Balance balance, String email) {
-        Balance chargingBalance = balanceRepository.findByEmail(email);
-        chargingBalance.setBalance(balance.getBalance());
+    public boolean jinddoPayChargeS(Balance balance, long amount) {
+        System.out.println("입금하는 금액: "+amount);
+        Balance chargingBalance = balanceRepository.findByMember_Email(balance.getEmail());
+        chargingBalance.setBalance(balance.getBalance()+amount);
         balanceRepository.save(chargingBalance);
-        return false;
+        return true;
     }
 }
