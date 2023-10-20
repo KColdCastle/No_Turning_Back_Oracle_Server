@@ -4,6 +4,7 @@ import NoTurningBack.jinddobey.domain.Balance;
 import NoTurningBack.jinddobey.dto.BalanceCheckDto;
 import NoTurningBack.jinddobey.repository.BalanceRepository;
 import NoTurningBack.jinddobey.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,11 +35,14 @@ public class JinddoPayServiceImpl implements JinddoPayService {
         return true;
     }
 
+    @Transactional
     @Override
     public boolean jinddoPayChargeS(Balance balance, long amount) {
         System.out.println("입금하는 금액: "+amount);
         Balance chargingBalance = balanceRepository.findByMember_Email(balance.getEmail());
-        chargingBalance.setBalance(balance.getBalance()+amount);
+        System.out.println("기존 계좌 잔액: "+chargingBalance.getBalance());
+        chargingBalance.setBalance(chargingBalance.getBalance()+amount);
+        System.out.println("거래 후 계좌 잔액: "+chargingBalance.getBalance());
         balanceRepository.save(chargingBalance);
         return true;
     }

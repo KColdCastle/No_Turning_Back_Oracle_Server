@@ -41,9 +41,10 @@ public class JinddoPayController {
         }
     }
 
-    @PutMapping("/charge/{email}")
-    public ResponseEntity<String> jinddoPayCharge(@RequestBody Balance balance, @PathVariable String email) {
-        jinddoPayService.jinddoPayChargeS(balance, email);
+    @PutMapping("/charge/{amount}") // 사용자 정보 변경 요청 컨트롤러
+    public ResponseEntity<String> jinddoPayCharge(@RequestBody Balance balance, @PathVariable long amount) {
+        System.out.println("입출금 금액: "+amount);
+        jinddoPayService.jinddoPayChargeS(balance, amount);
         return ResponseEntity.ok("진또페이 성공");
     }
 }
