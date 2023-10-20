@@ -1,7 +1,9 @@
 package NoTurningBack.jinddobey.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,8 +47,4 @@ public class Member {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @UpdateTimestamp
     private Date passwordChangeDate;
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-    private Balance balance;
 }

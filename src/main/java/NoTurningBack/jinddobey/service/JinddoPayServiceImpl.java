@@ -1,10 +1,9 @@
 package NoTurningBack.jinddobey.service;
 
 import NoTurningBack.jinddobey.domain.Balance;
-import NoTurningBack.jinddobey.domain.Member;
+import NoTurningBack.jinddobey.dto.BalanceCheckDto;
 import NoTurningBack.jinddobey.repository.BalanceRepository;
 import NoTurningBack.jinddobey.repository.MemberRepository;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,27 +18,20 @@ public class JinddoPayServiceImpl implements JinddoPayService {
     MemberRepository memberRepository;
 
     @Override
-    public long jinddoPayBalance(String email) {
-
-        return balanceRepository.findByEmail(email).getBalance();
+    public BalanceCheckDto jinddoPayBalance(String email) {
+        System.out.println("데이터베이스 검색: "+balanceRepository.findByMember_Email(email));
+        Balance balance = balanceRepository.findByMember_Email(email);
+        if(balance == null){
+            return null;
+        }else{
+            return BalanceCheckDto.of(balance);
+        }
     }
 
     @Override
     public boolean jinddoPayCreateS(Balance balance) {
-        Balance jinddoAccount = balanceRepository.findByEmail(balance.getEmail());
-        if(jinddoAccount == null) {
-            Balance jinddoAccount1 = new Balance();
-            Member jinddoUser = memberRepository.findByEmail(balance.getEmail());
-            System.out.println("검색결과 계좌: "+ jinddoAccount);
-            System.out.println("검색결과 유저: "+ jinddoUser);
-            jinddoAccount1.setEmail(balance.getEmail());
-            jinddoAccount1.setMember(jinddoUser);
-            System.out.println("추가할 계좌정보: "+jinddoAccount1);
-            balanceRepository.save(jinddoAccount1);
-            return true;
-        }else{
-            return false;
-        }
+        balanceRepository.save(balance);
+        return true;
     }
 
     @Override

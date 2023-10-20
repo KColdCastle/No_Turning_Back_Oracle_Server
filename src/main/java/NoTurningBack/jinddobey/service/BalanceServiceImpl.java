@@ -24,7 +24,7 @@ public class BalanceServiceImpl implements BalanceService {
     @Override
     public void balanceUpdateS(Balance balance) {
 //        depositRepository.jinddoSave(balance.getEmail());
-        Balance balance1=balanceRepository.findByEmail(balance.getEmail());
+        Balance balance1=balanceRepository.findByEmail(balance.getMember().getEmail());
         balance1.setBalance(balance.getBalance());
         balanceRepository.save(balance1);
     }

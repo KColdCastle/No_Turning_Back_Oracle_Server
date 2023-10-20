@@ -1,6 +1,8 @@
 package NoTurningBack.jinddobey.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,8 +23,6 @@ public class Balance {
     @Column(name ="email")
     private String email;
 
-    @JsonIgnore
-    @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)//ManyToOne이 항상 관계의 주인이다.
     @JoinColumn(name="email", referencedColumnName = "email")
     private Member member;
@@ -30,11 +30,11 @@ public class Balance {
     @Builder.Default
     private Long balance = 0L;
 
-    @OneToMany(mappedBy = "balance", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<Deposit> deposits = new ArrayList<>();
-
-
-    @OneToMany(mappedBy = "balance", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<Withdraw> withdraws = new ArrayList<>();
+//    @OneToMany(mappedBy = "balance", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+//    private List<Deposit> deposits = new ArrayList<>();
+//
+//
+//    @OneToMany(mappedBy = "balance", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+//    private List<Withdraw> withdraws = new ArrayList<>();
 
 }
