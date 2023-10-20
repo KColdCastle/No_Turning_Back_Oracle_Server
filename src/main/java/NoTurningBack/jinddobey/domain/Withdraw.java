@@ -22,7 +22,7 @@ public class Withdraw {
     private Long withdrawId;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="email", referencedColumnName = "email")
     private Balance balance;
 

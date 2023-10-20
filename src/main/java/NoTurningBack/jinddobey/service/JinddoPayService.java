@@ -4,7 +4,9 @@ import NoTurningBack.jinddobey.domain.Balance;
 
 public interface JinddoPayService {
 
-    void jinddoPayCreateS(Balance balance);
+    long jinddoPayBalance(String email);
 
-    void jinddoPayChargeS(Balance balance, String email);
+    boolean jinddoPayCreateS(Balance balance);
+
+    boolean jinddoPayChargeS(Balance balance, String email);
 }

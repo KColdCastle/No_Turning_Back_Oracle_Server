@@ -46,6 +46,7 @@ public class MemberServiceImpl implements MemberService {
         } else {
             return true;
         }
+    //    return member == (null) || !member.getPassword().equals(password) ?  false : true;
     }
 
     @Override

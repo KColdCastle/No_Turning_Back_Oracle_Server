@@ -21,8 +21,8 @@ public class Deposit {
     private Long depositId;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "email", referencedColumnName = "email")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "email")
     private Balance balance;
 
     @JsonIgnore
