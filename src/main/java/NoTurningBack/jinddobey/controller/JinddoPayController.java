@@ -41,7 +41,7 @@ public class JinddoPayController {
         }
     }
 
-    @PutMapping("/charge/{email}") // 사용자 정보 변경 요청 컨트롤러
+    @PutMapping("/charge/{email}")
     public ResponseEntity<String> jinddoPayCharge(@RequestBody Balance balance, @PathVariable String email) {
         jinddoPayService.jinddoPayChargeS(balance, email);
         return ResponseEntity.ok("진또페이 성공");
