@@ -14,6 +14,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
+@Builder
 @Entity//DB 테이블과 연동되는 엔터티라고 설정
 @Table(name="TRANSACTION")
 @SequenceGenerator(name="TRANSACTION_SEQ_GENERATOR", sequenceName = "TRANSACTION_SEQ",initialValue = 1,allocationSize = 1)

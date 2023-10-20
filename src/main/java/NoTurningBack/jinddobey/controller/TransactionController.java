@@ -42,7 +42,9 @@ public class TransactionController {
 
     @GetMapping("post/{postId}")
     public Transaction transactionSingle(@PathVariable String postId){
-        return transactionService.check(postId);
+        Transaction trans =  transactionService.check(postId);
+        System.out.println(trans);
+        return trans;
     }
 
     @PostMapping("post")
