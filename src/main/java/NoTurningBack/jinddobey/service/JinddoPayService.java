@@ -5,7 +5,7 @@ import NoTurningBack.jinddobey.dto.BalanceCheckDto;
 
 public interface JinddoPayService {
 
-    BalanceCheckDto jinddoPayBalance(String email);
+    long jinddoPayBalance(String email);
 
     boolean jinddoPayCreateS(Balance balance);
 

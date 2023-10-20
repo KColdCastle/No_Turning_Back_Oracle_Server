@@ -36,9 +36,9 @@ public class JinddoPayServiceImpl implements JinddoPayService {
 
     @Override
     public boolean jinddoPayChargeS(Balance balance, String email) {
-        Balance chargingBalance = balanceRepository.findByMember_Email(email);
+        Balance chargingBalance = balanceRepository.findByEmail(email);
         chargingBalance.setBalance(balance.getBalance());
         balanceRepository.save(chargingBalance);
-        return true;
+        return false;
     }
 }
