@@ -48,8 +48,8 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void transactionAddS(Transaction transaction) {
-        transactionRepository.save(transaction);
+    public Transaction transactionAddS(Transaction transaction) {
+        return transactionRepository.save(transaction);
     }
     @Override
     public boolean sellerCheckS(String postId) {

@@ -12,7 +12,6 @@ import java.sql.Date;
 
 @Data//게터 세터
 @AllArgsConstructor
-@Builder
 @NoArgsConstructor
 @Builder
 @Entity//DB 테이블과 연동되는 엔터티라고 설정

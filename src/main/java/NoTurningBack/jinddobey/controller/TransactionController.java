@@ -48,8 +48,9 @@ public class TransactionController {
     }
 
     @PostMapping("post")
-    public void transactionAdd(@RequestBody Transaction transaction){
-        transactionService.transactionAddS(transaction);
+    public Transaction transactionAdd(@RequestBody Transaction transaction){
+        System.err.println(transaction);
+        return transactionService.transactionAddS(transaction);
     }
 
     @PutMapping("sellerCheck/{postId}")
