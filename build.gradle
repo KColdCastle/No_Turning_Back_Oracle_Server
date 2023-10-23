@@ -28,10 +28,6 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok' //for lombok 어노테이션
 	implementation 'com.oracle.database.jdbc:ojdbc11'//ojdbc11=> jdbc버전
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' //for JSP in IntelliJ Community
-	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl' //for JSTL (Boot3.1.2에서 변경됨)
-	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api' //for JSTL (Boot3.1.2에서 변경됨)
-
 	implementation 'org.springframework.boot:spring-boot-starter-mail' //메일
 }
 

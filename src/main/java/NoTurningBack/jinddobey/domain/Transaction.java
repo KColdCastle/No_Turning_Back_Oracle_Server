@@ -12,6 +12,7 @@ import java.sql.Date;
 
 @Data//게터 세터
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
 @Entity//DB 테이블과 연동되는 엔터티라고 설정
 @Table(name="TRANSACTION")
@@ -43,9 +44,11 @@ public class Transaction {
     private Date biddingTimeStamp;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean sellerCheck = true;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean buyerCheck = true;
     @JsonIgnore
     @OneToOne(mappedBy = "transaction")

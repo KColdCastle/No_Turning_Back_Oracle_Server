@@ -50,13 +50,13 @@ public class TransactionController {
         transactionService.transactionAddS(transaction);
     }
 
-    @PutMapping("sellerCheck")
-    public void sellerCheck(@RequestBody Transaction transaction){
-        transactionService.sellerCheckS(transaction);
-    }
-    @PutMapping("dealerCheck")
-    public void buyerCheck(@RequestBody Transaction transaction){
-        transactionService.buyerCheckS(transaction);
-    }
+    @PutMapping("sellerCheck/{postId}")
+    public void sellerCheck(@PathVariable String postId){
+        transactionService.sellerCheckS(postId);
 
+    }
+    @PutMapping("dealerCheck/{postId}")
+    public void buyerCheck(@PathVariable String postId){
+        transactionService.buyerCheckS(postId);
+    }
 }

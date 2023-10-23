@@ -1,6 +1,6 @@
 package NoTurningBack.jinddobey.service;
 
-import NoTurningBack.jinddobey.domain.Transaction;
+import NoTurningBack.jinddobey.domain.*;
 import NoTurningBack.jinddobey.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -52,29 +52,57 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepository.save(transaction);
     }
     @Override
-    public void sellerCheckS(Transaction transaction) {
-        Transaction transaction1=transactionRepository.findByPostId(transaction.getPostId());
+    public boolean sellerCheckS(String postId) {
+        Transaction transaction1=transactionRepository.findByPostId(postId);
         transaction1.setSellerCheck(transaction1.isSellerCheck());
         transactionRepository.save(transaction1);
-
+        return dealExcute(transaction1);
     }
     @Override
-    public void buyerCheckS(Transaction transaction) {
-        Transaction transaction1=transactionRepository.findByPostId(transaction.getPostId());
+    public boolean buyerCheckS(String postId) {
+        Transaction transaction1=transactionRepository.findByPostId(postId);
         transaction1.setBuyerCheck(transaction1.isBuyerCheck());
         transactionRepository.save(transaction1);
-        dealExcute(transaction1);
+        return true;
     }
 
     @Transactional
     @Override
-    public void dealExcute(Transaction transaction) {
-        if(transaction.isBuyerCheck()==transaction.isSellerCheck()){
+    public boolean dealExcute(Transaction transaction) {
+        if(transaction.isBuyerCheck()&&transaction.isSellerCheck()){
             System.out.println("이제실행");
             System.out.println("이체할 가격: "+transaction.getCurrentPrice());
-            System.out.println("받을사람 email: "+transaction.getSellerEmail());
+            System.out.println("판매자 email: "+transaction.getSellerEmail());
             System.out.println("구매하는 사람 email: "+transaction.getMaxEmail());
 
+            //출금내역생성
+            Balance buyerBalance=balanceRepository.findByEmail(transaction.getMaxEmail());
+            if(buyerBalance.getBalance()- transaction.getCurrentPrice()>0) {
+                buyerBalance.setBalance(buyerBalance.getBalance() - transaction.getCurrentPrice());
+                balanceRepository.save(buyerBalance);
+                Withdraw withdraw = new Withdraw();
+                withdraw.setBalance(buyerBalance);
+                withdrawRepository.save(withdraw);
+
+                //입금내역생성
+                Balance sellerBalance=balanceRepository.findByEmail(transaction.getSellerEmail());
+                sellerBalance.setBalance(sellerBalance.getBalance()+transaction.getCurrentPrice());
+                Deposit deposit=new Deposit();
+                deposit.setBalance(sellerBalance);
+                depositRepository.save(deposit);
+
+                //Deal 테이블 생성
+                Deal deal = new Deal();
+                deal.setTransaction(transaction);
+                deal.setDeposit(deposit);
+                deal.setWithdraw(withdraw);
+                dealRepository.save(deal);
+
+                return true;
+            }else{
+                return false;
+            }
         }
+        return false;
     }
 }
