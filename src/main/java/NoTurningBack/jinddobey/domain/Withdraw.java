@@ -26,7 +26,4 @@ public class Withdraw {
     @JoinColumn(name="email", referencedColumnName = "email")
     private Balance balance;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "withdraw")
-    private List<Deal> deals = new ArrayList<>();
 }

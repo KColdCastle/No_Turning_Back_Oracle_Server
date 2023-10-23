@@ -8,11 +8,11 @@ public interface TransactionService {
     List<Transaction> checkAll();
     Transaction check(String postId);
     void maxPriceUpdateS(Transaction transaction);
-    void transactionAddS(Transaction transaction);
+    Transaction transactionAddS(Transaction transaction);
 
-    void buyerCheckS(Transaction transaction);
+    boolean buyerCheckS(String postId);
 
-    void sellerCheckS(Transaction transaction);
+    boolean sellerCheckS(String postId);
 
-    void dealExcute(Transaction transaction);
+    boolean dealExcute(Transaction transaction);
 }

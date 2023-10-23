@@ -25,7 +25,5 @@ public class Deposit {
     @JoinColumn(name = "email")
     private Balance balance;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "deposit")
-    private List<Deal> deals = new ArrayList<>();
+
 }

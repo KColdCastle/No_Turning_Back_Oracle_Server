@@ -43,9 +43,11 @@ public class Transaction {
     private Date biddingTimeStamp;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean sellerCheck = true;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean buyerCheck = true;
     @JsonIgnore
     @OneToOne(mappedBy = "transaction")

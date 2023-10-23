@@ -42,21 +42,24 @@ public class TransactionController {
 
     @GetMapping("post/{postId}")
     public Transaction transactionSingle(@PathVariable String postId){
-        return transactionService.check(postId);
+        Transaction trans =  transactionService.check(postId);
+        System.out.println(trans);
+        return trans;
     }
 
     @PostMapping("post")
-    public void transactionAdd(@RequestBody Transaction transaction){
-        transactionService.transactionAddS(transaction);
+    public Transaction transactionAdd(@RequestBody Transaction transaction){
+        System.err.println(transaction);
+        return transactionService.transactionAddS(transaction);
     }
 
-    @PutMapping("sellerCheck")
-    public void sellerCheck(@RequestBody Transaction transaction){
-        transactionService.sellerCheckS(transaction);
-    }
-    @PutMapping("dealerCheck")
-    public void buyerCheck(@RequestBody Transaction transaction){
-        transactionService.buyerCheckS(transaction);
-    }
+    @PutMapping("sellerCheck/{postId}")
+    public void sellerCheck(@PathVariable String postId){
+        transactionService.sellerCheckS(postId);
 
+    }
+    @PutMapping("dealerCheck/{postId}")
+    public void buyerCheck(@PathVariable String postId){
+        transactionService.buyerCheckS(postId);
+    }
 }
