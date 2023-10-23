@@ -19,4 +19,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     // ! 유저 검색
     List<Member> findByPhoneNumContaining(String phoneNum);
 
+    // ! 블랙 테스트
+    List<Member> findByStateFalse();
 }

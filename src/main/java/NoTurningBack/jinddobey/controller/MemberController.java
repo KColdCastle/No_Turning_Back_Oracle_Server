@@ -20,11 +20,11 @@ public class MemberController {
 
     @PostMapping("member_join") // 회원가입
     public ResponseEntity<String> memberJoin(@RequestBody Member member) {// JSON 파일로만 입력 하도록 하였음.
-        System.out.println("회원가입 넘어온 데이터: "+member);
+        System.out.println("회원가입 넘어온 데이터: " + member);
         boolean joinState = memberService.join(member);
-        if(joinState != false){
+        if (joinState != false) {
             return ResponseEntity.ok("회원가입 성공");
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("회원가입 실패");
         }
     }
@@ -42,7 +42,7 @@ public class MemberController {
 
     @PostMapping("/login") // 로그인 세션
     public ResponseEntity<String> memberLogin(@RequestBody Member member, HttpServletRequest request) {
-        System.out.println("로그인 정보 :"+member);
+        System.out.println("로그인 정보 :" + member);
         // 서비스를 통해 로그인 시도
         boolean loginState = memberService.login(member.getEmail(), member.getPassword());
 
@@ -87,6 +87,15 @@ public class MemberController {
     @GetMapping("memberState")
     public List<Member> memberState() {
         return memberService.memberState(true);
+    }
+
+    @GetMapping("memberStateFalse")
+    public ResponseEntity<List<Member>> getMembersByStateFalse() {
+        List<Member> members = memberService.findMembersByStateFalse();
+        if (members.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
     // ! 유저 검색

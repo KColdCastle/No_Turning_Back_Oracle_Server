@@ -9,8 +9,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AdminRepository extends JpaRepository<Admin, Integer> {
-    Optional<Admin> findOptionalByAdminId(String adminId);
 
     Admin findByAdminId(String adminId);
+
+    // ! 로구인
+    Optional<Admin> findOptionalByAdminId(String adminId);
+
+    // ! 로구인2
+    Optional<Admin> findByAdminIdAndAdminPassword(String adminId, String adminPassword);
 
 }

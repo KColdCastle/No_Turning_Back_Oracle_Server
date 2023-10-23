@@ -23,6 +23,8 @@ public interface MemberService {
 
     public void minusWarningS(String email);
 
+    List<Member> findMembersByStateFalse();
+
     Optional<Member> findMemberByEmail(String email);
 
     List<Member> memberState(boolean state);

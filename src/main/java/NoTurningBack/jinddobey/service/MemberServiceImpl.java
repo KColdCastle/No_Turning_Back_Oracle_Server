@@ -25,10 +25,10 @@ public class MemberServiceImpl implements MemberService {
     public boolean join(Member member) {
         // 회원가입
         Member member1 = memberRepository.findByEmail(member.getEmail());
-        if(member1==null){
+        if (member1 == null) {
             memberRepository.save(member);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -46,7 +46,8 @@ public class MemberServiceImpl implements MemberService {
         } else {
             return true;
         }
-    //    return member == (null) || !member.getPassword().equals(password) ?  false : true;
+        // return member == (null) || !member.getPassword().equals(password) ? false :
+        // true;
     }
 
     @Override
@@ -71,10 +72,10 @@ public class MemberServiceImpl implements MemberService {
 
         if (member.getWarning() < 3) {
             member.setWarning(member.getWarning() + 1);
-            member.setState(false);
+            member.setState(true);
         }
         if (member.getWarning() == 3) {
-            member.setState(true);
+            member.setState(false);
         }
         memberRepository.save(member);
     }
@@ -88,7 +89,7 @@ public class MemberServiceImpl implements MemberService {
         }
         if (member.getWarning() > 0) {
             member.setWarning(member.getWarning() - 1);
-            member.setState(false);
+            member.setState(true);
         }
         memberRepository.save(member);
 
@@ -117,6 +118,11 @@ public class MemberServiceImpl implements MemberService {
     public List<Member> getListByPhoneNum(Member member) {
         return memberRepository.findByPhoneNumContaining(member.getPhoneNum());
 
+    }
+
+    @Override
+    public List<Member> findMembersByStateFalse() {
+        return memberRepository.findByStateFalse();
     }
 
 }
