@@ -45,6 +45,7 @@ public class MemberController {
         System.out.println("로그인 정보 :" + member);
         // 서비스를 통해 로그인 시도
         boolean loginState = memberService.login(member.getEmail(), member.getPassword());
+        System.out.println(member);
 
         if (loginState != false) {
             // 로그인 성공 시 세션 생성
@@ -55,7 +56,6 @@ public class MemberController {
             // Map<String, Object> response = new HashMap<>();
             // response.put("message", "로그인 성공");
             // response.put("sessionInfo", loggedInMember);
-
             return ResponseEntity.ok("로그인 성공");
         } else {
             // 로그인 실패 시 401 Unauthorized 상태 코드와 실패 메시지를 반환합니다.
