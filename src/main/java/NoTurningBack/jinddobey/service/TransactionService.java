@@ -6,6 +6,11 @@ import java.util.List;
 
 public interface TransactionService {
     List<Transaction> checkAll();
+
+    List<Transaction> buyerTransaction(String email);
+    List<Transaction> sellerTransaction(String email);
+
+
     Transaction check(String postId);
     void maxPriceUpdateS(Transaction transaction);
     Transaction transactionAddS(Transaction transaction);

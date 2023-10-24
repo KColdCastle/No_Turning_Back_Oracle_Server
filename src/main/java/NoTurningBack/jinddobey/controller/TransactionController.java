@@ -19,6 +19,15 @@ public class TransactionController {
         return transactionService.checkAll();
     }
 
+    @GetMapping("buyerTransaction/{email}")
+    public List<Transaction> buyerTransaction(@PathVariable String email){
+        return transactionService.buyerTransaction(email);
+    }
+    @GetMapping("sellerTransaction/{email}")
+    public List<Transaction> sellerTransaction(@PathVariable String email){
+        return transactionService.sellerTransaction(email);
+    }
+
     @GetMapping("max_price/{postId}")
     public long maxPriceCheck(@PathVariable String postId){
         long maxPrice=transactionService.check(postId).getMaxPrice();

@@ -31,6 +31,17 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    public List<Transaction> buyerTransaction(String email) {
+
+        return transactionRepository.findAllByMaxEmail(email);
+    }
+
+    @Override
+    public List<Transaction> sellerTransaction(String email) {
+        return transactionRepository.findAllBySellerEmail(email);
+    }
+
+    @Override
     public Transaction check(String postId) {
         Transaction findPrice = transactionRepository.findByPostId(postId);
         return findPrice;

@@ -44,11 +44,11 @@ public class Transaction {
 
     @Column(nullable = false)
     @Builder.Default
-    private boolean sellerCheck = true;
+    private boolean sellerCheck = false;
 
     @Column(nullable = false)
     @Builder.Default
-    private boolean buyerCheck = true;
+    private boolean buyerCheck = false;
     @JsonIgnore
     @OneToOne(mappedBy = "transaction")
     private Deal deal;
