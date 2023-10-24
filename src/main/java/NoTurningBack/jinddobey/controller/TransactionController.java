@@ -67,7 +67,7 @@ public class TransactionController {
         transactionService.sellerCheckS(postId);
 
     }
-    @PutMapping("dealerCheck/{postId}")
+    @PutMapping("buyerCheck/{postId}")
     public void buyerCheck(@PathVariable String postId){
         transactionService.buyerCheckS(postId);
     }
