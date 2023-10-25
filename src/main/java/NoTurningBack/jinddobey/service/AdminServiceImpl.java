@@ -82,21 +82,21 @@ public class AdminServiceImpl implements AdminService {
     }
 
     // ! 로그인 토큰 관련
-    @Value("${JWT_SECRET_KEY}")
-    private String secretKey;
-
-    public String createToken(String subject) {
-        return Jwts.builder()
-                .setSubject(subject)
-                .setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, secretKey)
-                .compact();
-    }
-
-    public Claims parseToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .getBody();
-    }
+//    @Value("${JWT_SECRET_KEY}")
+//    private String secretKey;
+//
+//    public String createToken(String subject) {
+//        return Jwts.builder()
+//                .setSubject(subject)
+//                .setIssuedAt(new Date())
+//                .signWith(SignatureAlgorithm.HS256, secretKey)
+//                .compact();
+//    }
+//
+//    public Claims parseToken(String token) {
+//        return Jwts.parser()
+//                .setSigningKey(secretKey)
+//                .parseClaimsJws(token)
+//                .getBody();
+//    }
 }

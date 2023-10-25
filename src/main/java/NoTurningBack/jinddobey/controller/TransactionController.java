@@ -49,7 +49,7 @@ public class TransactionController {
         return currentPrice;
     }
 
-    @GetMapping("post/{postId}")
+    @GetMapping("post/{postId}") //구매자 이메일 체크 확인
     public Transaction transactionSingle(@PathVariable String postId){
         Transaction trans =  transactionService.check(postId);
         System.out.println(trans);

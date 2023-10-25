@@ -35,7 +35,7 @@ public interface AdminService {
 
     // ! 토큰
 
-    public String createToken(String subject);
-
-    public Claims parseToken(String token);
+//    public String createToken(String subject);
+//
+//    public Claims parseToken(String token);
 }

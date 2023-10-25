@@ -32,7 +32,6 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> buyerTransaction(String email) {
-
         return transactionRepository.findAllByMaxEmail(email);
     }
 
@@ -64,16 +63,20 @@ public class TransactionServiceImpl implements TransactionService {
     }
     @Override
     public boolean sellerCheckS(String postId) {
-        Transaction transaction1=transactionRepository.findByPostId(postId);
-        transaction1.setSellerCheck(transaction1.isSellerCheck());
+        Transaction transaction1 = transactionRepository.findByPostId(postId);
+        transaction1.setSellerCheck(true);
         transactionRepository.save(transaction1);
-        return dealExcute(transaction1);
+
+        return dealExcute(transaction1) && true;
     }
+
     @Override
     public boolean buyerCheckS(String postId) {
         Transaction transaction1=transactionRepository.findByPostId(postId);
-        transaction1.setBuyerCheck(transaction1.isBuyerCheck());
+        //transaction1.setSellerCheck(transaction1.isSellerCheck());
+        transaction1.setBuyerCheck(true);
         transactionRepository.save(transaction1);
+
         return true;
     }
 
