@@ -81,7 +81,7 @@ public class AdminServiceImpl implements AdminService {
         return adminRepository.findOptionalByAdminId(adminId);
     }
 
-    // ! 로그인 토큰 관련
+//    // ! 로그인 토큰 관련
 //    @Value("${JWT_SECRET_KEY}")
 //    private String secretKey;
 //

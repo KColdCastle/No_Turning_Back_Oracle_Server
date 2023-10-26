@@ -32,9 +32,9 @@ public interface AdminService {
 
     // ! 로구인2
     public boolean login(String adminId, String adminPassword);
-
-    // ! 토큰
-
+//
+//    // ! 토큰
+//
 //    public String createToken(String subject);
 //
 //    public Claims parseToken(String token);

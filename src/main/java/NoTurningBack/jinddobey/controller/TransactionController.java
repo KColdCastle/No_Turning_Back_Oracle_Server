@@ -3,6 +3,8 @@ package NoTurningBack.jinddobey.controller;
 import NoTurningBack.jinddobey.domain.Transaction;
 import NoTurningBack.jinddobey.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,7 +51,7 @@ public class TransactionController {
         return currentPrice;
     }
 
-    @GetMapping("post/{postId}") //구매자 이메일 체크 확인
+    @GetMapping("post/{postId}")
     public Transaction transactionSingle(@PathVariable String postId){
         Transaction trans =  transactionService.check(postId);
         System.out.println(trans);
@@ -63,12 +65,23 @@ public class TransactionController {
     }
 
     @PutMapping("sellerCheck/{postId}")
-    public void sellerCheck(@PathVariable String postId){
-        transactionService.sellerCheckS(postId);
-
+    public ResponseEntity<String> sellerCheck(@PathVariable String postId){
+        boolean sellerCheckState=transactionService.sellerCheckS(postId);
+        if(sellerCheckState){
+            return ResponseEntity.ok("판매자 확인 완료");
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("판매자 확인 실패");
+        }
     }
-    @PutMapping("buyerCheck/{postId}")
-    public void buyerCheck(@PathVariable String postId){
-        transactionService.buyerCheckS(postId);
+
+
+    @PutMapping("dealerCheck/{postId}")
+    public ResponseEntity<String> buyerCheck(@PathVariable String postId){
+        boolean buyerCheckState=transactionService.buyerCheckS(postId);
+        if(buyerCheckState){
+            return ResponseEntity.ok("구매자 확인 완료");
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("구매자 확인 실패");
+        }
     }
 }
