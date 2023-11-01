@@ -8,6 +8,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,61 +21,101 @@ import java.util.List;
 import java.util.Map;
 
 @RequestMapping("admin")
-@CrossOrigin(origins = "*", maxAge = 3600) // #매우 중요!
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", maxAge = 3600)
+// #매우 중요!
 @RestController
 public class AdminController {
     @Autowired
     AdminService adminService;
 
-    private static final long EXPIRATION_TIME = 864_000_000; // 10 days
-    private static final String SECRET_KEY = "whdudxo_WkdchlrhdnfxmfktbvjQkdnj"; // 실제로는 더 강력한 키를 사용하세요.
-
-    private String getCookieValue(Cookie[] cookies, String name) {
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (name.equals(cookie.getName())) {
-                    return cookie.getValue();
-                }
-            }
-        }
-        return null;
-    }
-
-    @PostMapping("admin_join") // 회원가입
+    // ! 회원가입
+    @PostMapping("admin_join")
     public void adminJoin(@RequestBody Admin admin) {// JSON 파일로만 입력 하도록 하였음.
         adminService.join(admin);
     }
 
-    // ! set JWT_SECRET_KEY=whdudxoWkdchlrhdnfxmfktbvjQkdnj (((씨끄맀 끼) <- 존나중요 노출금지)
+    // ! 로그인 보류
+    // @PostMapping("/login")
+    // public ResponseEntity<Map<String, String>> adminLogin(@RequestBody Admin
+    // admin) {
+    // boolean loginState = adminService.login(admin.getAdminId(),
+    // admin.getAdminPassword());
 
+    // if (loginState) {
+    // // 서비스에서 employeeName 또는 닉네임을 가져옵니다.
+    // String employeeName =
+    // adminService.getEmployeeNameByAdminId(admin.getAdminId());
+
+    // // 응답을 위한 맵을 생성합니다.
+    // Map<String, String> response = new HashMap<>();
+    // response.put("message", "로그인 성공");
+    // response.put("employeeName", employeeName);
+
+    // return ResponseEntity.ok(response);
+    // } else {
+    // Map<String, String> errorResponse = new HashMap<>();
+    // errorResponse.put("message", "로그인 실패");
+
+    // return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    // }
+    // }
+    // ! 로그인 수정
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> adminLogin(@RequestBody Admin admin, HttpServletResponse response) {
-        boolean loginState = adminService.login(admin.getAdminId(), admin.getAdminPassword());
+    public ResponseEntity<Map<String, String>> adminLogin(@RequestBody Admin admin, HttpSession session,
+            HttpServletResponse response) {
+        Admin authenticatedAdmin = adminService.login(admin.getAdminId(), admin.getAdminPassword());
 
-        if (loginState) {
-            String employeeName = adminService.getEmployeeNameByAdminId(admin.getAdminId());
-            String jwtToken = Jwts.builder()
-                    .setSubject(admin.getAdminId())
-                    .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                    .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-                    .compact();
+        if (authenticatedAdmin != null) {
+            // 세션에 로그인 정보 저장
+            session.setAttribute("isLoggedIn", true);
+            session.setAttribute("adminId", authenticatedAdmin.getAdminId());
 
-            // JWT 토큰을 쿠키로 전송
-            Cookie authCookie = new Cookie("AUTH_TOKEN", jwtToken);
-            authCookie.setHttpOnly(true); // JS에서 쿠키에 접근 못하게 함
-            authCookie.setPath("/"); // 애플리케이션의 모든 경로에서 유효
-            response.addCookie(authCookie);
+            String employeeName = adminService.getEmployeeNameByAdminId(authenticatedAdmin.getAdminId());
+            Map<String, String> responseMap = new HashMap<>();
+            responseMap.put("message", "로그인 성공");
+            responseMap.put("employeeName", employeeName);
 
-            // 응답 데이터 설정 및 반환
-            Map<String, String> responseData = new HashMap<>();
-            responseData.put("message", "로그인 성공");
-            responseData.put("employeeName", employeeName);
-            return ResponseEntity.ok(responseData);
+            // 로그인 성공 후 쿠키 설정
+            Cookie cookie = new Cookie("JSESSIONID", session.getId());
+            cookie.setMaxAge(60 * 60); // 예: 1시간 (60초 * 60분)
+            cookie.setSecure(true); // HTTPS에서만 쿠키 전송
+            cookie.setHttpOnly(true); // JavaScript에서 접근 불가
+            response.addCookie(cookie);
+
+            return ResponseEntity.ok(responseMap);
         } else {
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("message", "로그인 실패");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
         }
+    }
+
+    @GetMapping("/checkLoginStatus")
+    public ResponseEntity<Map<String, Object>> checkLoginStatus(HttpServletRequest request, HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JSESSIONID".equals(cookie.getName())) {
+                    response.put("loggedIn", true);
+                    response.put("adminId", session.getAttribute("adminId"));
+                    return ResponseEntity.ok(response);
+                }
+            }
+        }
+        response.put("loggedIn", false);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpSession session, HttpServletResponse response) {
+        session.invalidate(); // 세션 종료
+        Cookie cookie = new Cookie("JSESSIONID", "");
+        cookie.setMaxAge(0); // 쿠키를 즉시 삭제
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/admin/suspendedMembers")

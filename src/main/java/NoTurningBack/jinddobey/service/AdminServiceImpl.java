@@ -47,15 +47,19 @@ public class AdminServiceImpl implements AdminService {
         return adminRepository.findAll();
     }
 
-    public boolean login(String adminId, String adminPassword) {
+    @Override
+    public Admin login(String adminId, String adminPassword) {
         Optional<Admin> optionalAdmin = adminRepository.findOptionalByAdminId(adminId);
 
         if (optionalAdmin.isPresent()) {
             Admin admin = optionalAdmin.get();
-            return adminPassword.equals(admin.getAdminPassword());
+            // 비밀번호 검증 로직은 보안을 위해 암호화 및 해시화 필요
+            if (adminPassword.equals(admin.getAdminPassword())) {
+                return admin;
+            }
         }
 
-        return false;
+        return null;
     }
 
     public String getEmployeeNameByAdminId(String adminId) {
@@ -81,22 +85,4 @@ public class AdminServiceImpl implements AdminService {
         return adminRepository.findOptionalByAdminId(adminId);
     }
 
-//    // ! 로그인 토큰 관련
-//    @Value("${JWT_SECRET_KEY}")
-//    private String secretKey;
-//
-//    public String createToken(String subject) {
-//        return Jwts.builder()
-//                .setSubject(subject)
-//                .setIssuedAt(new Date())
-//                .signWith(SignatureAlgorithm.HS256, secretKey)
-//                .compact();
-//    }
-//
-//    public Claims parseToken(String token) {
-//        return Jwts.parser()
-//                .setSigningKey(secretKey)
-//                .parseClaimsJws(token)
-//                .getBody();
-//    }
 }

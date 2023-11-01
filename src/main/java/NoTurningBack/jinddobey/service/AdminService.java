@@ -31,11 +31,6 @@ public interface AdminService {
     public String getEmployeeNameByAdminId(String adminId);
 
     // ! 로구인2
-    public boolean login(String adminId, String adminPassword);
-//
-//    // ! 토큰
-//
-//    public String createToken(String subject);
-//
-//    public Claims parseToken(String token);
+    // public boolean login(String adminId, String adminPassword);
+    public Admin login(String adminId, String adminPassword);
 }
