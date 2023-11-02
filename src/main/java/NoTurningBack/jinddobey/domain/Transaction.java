@@ -49,6 +49,7 @@ public class Transaction {
     @Column(nullable = false)
     @Builder.Default
     private boolean buyerCheck = false;
+
     @JsonIgnore
     @OneToOne(mappedBy = "transaction")
     private Deal deal;

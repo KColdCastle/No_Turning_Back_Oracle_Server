@@ -74,7 +74,6 @@ public class TransactionController {
         }
     }
 
-
     @PutMapping("dealerCheck/{postId}")
     public ResponseEntity<String> buyerCheck(@PathVariable String postId){
         boolean buyerCheckState=transactionService.buyerCheckS(postId);

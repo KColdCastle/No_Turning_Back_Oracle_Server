@@ -3,26 +3,21 @@ package NoTurningBack.jinddobey.controller;
 import NoTurningBack.jinddobey.domain.Admin;
 import NoTurningBack.jinddobey.domain.Member;
 import NoTurningBack.jinddobey.service.AdminService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RequestMapping("admin")
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", maxAge = 3600)
-// #매우 중요!
 @RestController
 public class AdminController {
     @Autowired
@@ -34,35 +29,9 @@ public class AdminController {
         adminService.join(admin);
     }
 
-    // ! 로그인 보류
-    // @PostMapping("/login")
-    // public ResponseEntity<Map<String, String>> adminLogin(@RequestBody Admin
-    // admin) {
-    // boolean loginState = adminService.login(admin.getAdminId(),
-    // admin.getAdminPassword());
-
-    // if (loginState) {
-    // // 서비스에서 employeeName 또는 닉네임을 가져옵니다.
-    // String employeeName =
-    // adminService.getEmployeeNameByAdminId(admin.getAdminId());
-
-    // // 응답을 위한 맵을 생성합니다.
-    // Map<String, String> response = new HashMap<>();
-    // response.put("message", "로그인 성공");
-    // response.put("employeeName", employeeName);
-
-    // return ResponseEntity.ok(response);
-    // } else {
-    // Map<String, String> errorResponse = new HashMap<>();
-    // errorResponse.put("message", "로그인 실패");
-
-    // return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-    // }
-    // }
-    // ! 로그인 수정
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> adminLogin(@RequestBody Admin admin, HttpSession session,
-            HttpServletResponse response) {
+                                                          HttpServletResponse response) {
         Admin authenticatedAdmin = adminService.login(admin.getAdminId(), admin.getAdminPassword());
 
         if (authenticatedAdmin != null) {

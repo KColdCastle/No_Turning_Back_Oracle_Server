@@ -37,11 +37,12 @@ public class MemberServiceImpl implements MemberService {
     public boolean login(String email, String password) {
         // 이메일을 사용하여 사용자 정보를 조회합니다.
         Member member = memberRepository.findByEmail(email);
+        System.out.println("로그인하는 이메일 정보: "+member);
         // System.out.println("이메일:"+member.getEmail());
         // System.out.println("비밀번호: "+member.getPassword());
 
         // 사용자 정보가 없거나 비밀번호가 일치하지 않으면 null을 반환합니다.
-        if (member == null || !member.getPassword().equals(password)) {
+        if (member == null || !member.getPassword().equals(password)|| member.isState()==false) {
             return false;
         } else {
             return true;

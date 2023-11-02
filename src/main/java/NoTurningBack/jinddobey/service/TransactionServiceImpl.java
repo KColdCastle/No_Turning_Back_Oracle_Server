@@ -48,9 +48,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void maxPriceUpdateS(Transaction transaction) {
-        Optional<Transaction> newBidder= transactionRepository.findByTransactionId(transaction.getTransactionId());
+        Optional<Transaction> newBidder = transactionRepository.findByTransactionId(transaction.getTransactionId());
         //Optional<>은 데이터 값에서 null일 경우 오류나는 것을 방지해줌.
-        Transaction Transaction1=newBidder.get();
+        Transaction Transaction1 = newBidder.get();
         Transaction1.setMaxEmail(transaction.getMaxEmail());
         Transaction1.setCurrentPrice(transaction.getCurrentPrice());
         Transaction1.setMaxPrice(transaction.getMaxPrice());
@@ -61,19 +61,19 @@ public class TransactionServiceImpl implements TransactionService {
     public Transaction transactionAddS(Transaction transaction) {
         return transactionRepository.save(transaction);
     }
+
     @Override
     public boolean sellerCheckS(String postId) {
         Transaction transaction1 = transactionRepository.findByPostId(postId);
         transaction1.setSellerCheck(true);
         transactionRepository.save(transaction1);
 
-        return dealExcute(transaction1) && true;
+        return dealExcute(transaction1);
     }
 
     @Override
     public boolean buyerCheckS(String postId) {
-        Transaction transaction1=transactionRepository.findByPostId(postId);
-        //transaction1.setSellerCheck(transaction1.isSellerCheck());
+        Transaction transaction1 = transactionRepository.findByPostId(postId);
         transaction1.setBuyerCheck(true);
         transactionRepository.save(transaction1);
 
@@ -83,15 +83,15 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     @Override
     public boolean dealExcute(Transaction transaction) {
-        if(transaction.isBuyerCheck()&&transaction.isSellerCheck()){
+        if (transaction.isBuyerCheck() && transaction.isSellerCheck()) {
             System.out.println("이제실행");
-            System.out.println("이체할 가격: "+transaction.getCurrentPrice());
-            System.out.println("판매자 email: "+transaction.getSellerEmail());
-            System.out.println("구매하는 사람 email: "+transaction.getMaxEmail());
+            System.out.println("이체할 가격: " + transaction.getCurrentPrice());
+            System.out.println("판매자 email: " + transaction.getSellerEmail());
+            System.out.println("구매하는 사람 email: " + transaction.getMaxEmail());
 
             //출금내역생성
-            Balance buyerBalance=balanceRepository.findByEmail(transaction.getMaxEmail());
-            if(buyerBalance.getBalance()- transaction.getCurrentPrice()>0) {
+            Balance buyerBalance = balanceRepository.findByEmail(transaction.getMaxEmail());
+            if (buyerBalance.getBalance() - transaction.getCurrentPrice() > 0) {
                 buyerBalance.setBalance(buyerBalance.getBalance() - transaction.getCurrentPrice());
                 balanceRepository.save(buyerBalance);
                 Withdraw withdraw = new Withdraw();
@@ -99,9 +99,9 @@ public class TransactionServiceImpl implements TransactionService {
                 withdrawRepository.save(withdraw);
 
                 //입금내역생성
-                Balance sellerBalance=balanceRepository.findByEmail(transaction.getSellerEmail());
-                sellerBalance.setBalance(sellerBalance.getBalance()+transaction.getCurrentPrice());
-                Deposit deposit=new Deposit();
+                Balance sellerBalance = balanceRepository.findByEmail(transaction.getSellerEmail());
+                sellerBalance.setBalance(sellerBalance.getBalance() + transaction.getCurrentPrice());
+                Deposit deposit = new Deposit();
                 deposit.setBalance(sellerBalance);
                 depositRepository.save(deposit);
 
@@ -113,7 +113,7 @@ public class TransactionServiceImpl implements TransactionService {
                 dealRepository.save(deal);
 
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }

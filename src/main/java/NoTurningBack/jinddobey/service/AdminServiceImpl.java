@@ -4,16 +4,10 @@ import NoTurningBack.jinddobey.domain.Admin;
 import NoTurningBack.jinddobey.domain.Member;
 import NoTurningBack.jinddobey.repository.AdminRepository;
 import NoTurningBack.jinddobey.repository.MemberRepository;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
