@@ -11,11 +11,11 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity // DB 테이블과 연동되는 엔터티라고 설정
-@SequenceGenerator(name = "Deal_SEQ_GENERATOR", sequenceName = "Deal_SEQ", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "Deal_SEQ_GENERATOR", sequenceName = "Deal_SEQ", initialValue = 1, allocationSize = 1)// sequence 생성기 정의
 public class Deal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Deal_SEQ_GENERATOR")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Deal_SEQ_GENERATOR")// sequence 생성기 Deal_SEQ_GENERATOR 이름으로 사용
     private Long dealId;
 
     @JsonIgnore

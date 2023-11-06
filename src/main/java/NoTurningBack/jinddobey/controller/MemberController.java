@@ -1,6 +1,8 @@
 package NoTurningBack.jinddobey.controller;
 
 import NoTurningBack.jinddobey.domain.Member;
+import NoTurningBack.jinddobey.dto.BalanceCheckDto;
+import NoTurningBack.jinddobey.service.JinddoPayService;
 import NoTurningBack.jinddobey.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("member")
 @CrossOrigin(origins = "*", maxAge = 3600) // #매우 중요!
@@ -17,6 +19,9 @@ import java.util.List;
 public class MemberController {
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    JinddoPayService jinddoPayService;
 
     @PostMapping("member_join") // 회원가입
     public ResponseEntity<String> memberJoin(@RequestBody Member member) {// JSON 파일로만 입력 하도록 하였음.
@@ -42,15 +47,22 @@ public class MemberController {
 
     @PostMapping("/login") // 로그인 세션
     public ResponseEntity<String> memberLogin(@RequestBody Member member, HttpServletRequest request) {
-        System.out.println("로그인 정보 :" + member);
+//        System.out.println("로그인 정보 :" + member);
         // 서비스를 통해 로그인 시도
         boolean loginState = memberService.login(member.getEmail(), member.getPassword());
-        System.out.println(member);
 
         if (loginState != false) {
-            return ResponseEntity.ok("로그인 성공");
+            BalanceCheckDto balanceCheck = jinddoPayService.jinddoPayBalance(member.getEmail());
+//            System.out.println("잔액조회한 정보"+balanceCheck.getBalance());
+            if (balanceCheck == null) {
+                return ResponseEntity.ok("계좌없음");
+            } else if (balanceCheck.getBalance() >= 0) {
+                return ResponseEntity.ok("계좌있음");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("로그인 실패");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 

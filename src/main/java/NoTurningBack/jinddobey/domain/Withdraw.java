@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity//DB 테이블과 연동되는 엔터티라고 설정
 @SequenceGenerator(name="Withdraw_SEQ_GENERATOR", sequenceName = "Withdraw_SEQ",initialValue = 1,allocationSize = 1)
-public class Withdraw {
+public class Withdraw { // 출금
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Withdraw_SEQ_GENERATOR")

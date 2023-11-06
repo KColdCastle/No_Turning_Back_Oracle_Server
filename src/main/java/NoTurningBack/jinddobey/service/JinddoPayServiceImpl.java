@@ -19,8 +19,10 @@ public class JinddoPayServiceImpl implements JinddoPayService {
         System.out.println("데이터베이스 검색: " + balanceRepository.findByMember_Email(email));
         Balance balance = balanceRepository.findByMember_Email(email);
         if (balance == null) {
+            System.out.println("계좌없음");
             return null;
         } else {
+            System.out.println("계좌있음");
             return BalanceCheckDto.of(balance);
         }
     }

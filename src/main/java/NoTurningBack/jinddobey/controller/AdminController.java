@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequestMapping("admin")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3001", allowCredentials = "true", maxAge = 3600)
 @RestController
 public class AdminController {
     @Autowired

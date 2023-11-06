@@ -35,7 +35,7 @@ public class JinddoPayController {
         System.out.println("받아온 유저 Email: "+balance.getMember());
         boolean jinddoStart=jinddoPayService.jinddoPayCreateS(balance);
         if(jinddoStart != false){
-            return ResponseEntity.ok("진또페이 성공");
+            return ResponseEntity.ok("계좌있음");
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("진또 사용 실패");
         }
