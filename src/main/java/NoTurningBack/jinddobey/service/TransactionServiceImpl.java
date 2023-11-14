@@ -62,6 +62,7 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.save(transaction);
     }
 
+
     @Override
     public boolean sellerCheckS(String postId) {
         Transaction transaction1 = transactionRepository.findByPostId(postId);
@@ -70,6 +71,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         return dealExcute(transaction1);
     }
+
 
     @Override
     public boolean buyerCheckS(String postId) {
